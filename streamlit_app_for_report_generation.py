@@ -193,8 +193,11 @@ def main():
             whereused = get_whereused(df)
 
             df = df.drop('Level_1',axis=1)
-
-            writer = pd.ExcelWriter('final.xlsx')
+            
+            file_name = uploaded_file.name
+            loc = uploaded_file.replace(file_name,'')
+            
+            writer = pd.ExcelWriter(loc+'final.xlsx')
             df.to_excel(writer,'BoM',index=False)
             asset_to_pwa.to_excel(writer,'Asset To PWA',index=False)
             asset_bom.to_excel(writer,'Asset BoM',index=False)
