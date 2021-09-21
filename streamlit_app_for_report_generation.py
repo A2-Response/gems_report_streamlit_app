@@ -7,6 +7,8 @@ import pandas as pd
 import sys
 import os
 import copy
+import base64
+import io
 
 def process_data(path):
     if path.name.endswith('.csv'):
@@ -193,19 +195,22 @@ def main():
             whereused = get_whereused(df)
 
             df = df.drop('Level_1',axis=1)
-            
-            loc = os.path.expanduser('~')
-            
-            writer = pd.ExcelWriter(loc+'final.xlsx')
-            df.to_excel(writer,'BoM',index=False)
-            asset_to_pwa.to_excel(writer,'Asset To PWA',index=False)
-            asset_bom.to_excel(writer,'Asset BoM',index=False)
-            pwa_bom.to_excel(writer,'PWA BoM',index=False)
-            whereused.to_excel(writer,'Whereused',index=False)
-            part_list.to_excel(writer,'Part List',index=False)
+                   
+            output = io.BytesIO()
+            writer = pd.ExcelWriter(output, engine='xlsxwriter')
+            df.to_excel(writer,'BoM',index=False,encoding='utf-8')
+            asset_to_pwa.to_excel(writer,'Asset To PWA',index=False,encoding='utf-8')
+            asset_bom.to_excel(writer,'Asset BoM',index=False,encoding='utf-8')
+            pwa_bom.to_excel(writer,'PWA BoM',index=False,encoding='utf-8')
+            whereused.to_excel(writer,'Whereused',index=False,encoding='utf-8')
+            part_list.to_excel(writer,'Part List',index=False,encoding='utf-8')
             writer.save()
-            writer.close()
-            st.success(f'Process Done! Report saved at {loc}file.xlsx')
+            processed_data = output.getvalue()
+            val = processed_data
+            b64 = base64.b64encode(val)
+            st.success(f'Process Done!')
+            linko= f'<a href="data:application/octet-stream;base64,{b64.decode()}" download="BoM_Report.xlsx">Download Report file</a>'
+            st.markdown(linko, unsafe_allow_html=True)
     
 if __name__ == '__main__':
     main()
