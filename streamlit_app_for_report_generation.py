@@ -194,8 +194,7 @@ def main():
 
             df = df.drop('Level_1',axis=1)
             
-            file_name = uploaded_file.name
-            loc = uploaded_file.replace(file_name,'')
+            loc = os.path.expanduser('~')
             
             writer = pd.ExcelWriter(loc+'final.xlsx')
             df.to_excel(writer,'BoM',index=False)
@@ -206,8 +205,7 @@ def main():
             part_list.to_excel(writer,'Part List',index=False)
             writer.save()
             writer.close()
-            pwd = os.getcwd()
-            st.success(f'Process Done! Report saved at {pwd}/file.xlsx')
+            st.success(f'Process Done! Report saved at {loc}file.xlsx')
     
 if __name__ == '__main__':
     main()
