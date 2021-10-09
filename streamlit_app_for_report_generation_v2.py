@@ -11,10 +11,7 @@ import base64
 import io
 
 def process_data(path):
-    if path.endswith('.csv'):
-        df = pd.read_csv(path,sep=',')
-    else:
-        df = pd.read_csv(path,sep='\t')
+    df = pd.read_csv(path,sep='\t')
     indices = list(df[df['Level']==1].index)
     copy_indices = copy.deepcopy(indices)
     copy_indices.append(df.shape[0])
@@ -217,10 +214,10 @@ def get_whereused(df):
 
 def main():
     st.title("Application For BoM Report Creation...")
-    uploaded_file = st.file_uploader("Upload Files",type=['csv','xls'])
+    uploaded_file = st.file_uploader("Upload Files",type=['xls'])
     if uploaded_file is not None:
-        file_details = {"FileName":uploaded_file.name,"FileType":uploaded_file.type,"FileSize":uploaded_file.size}
-        st.write(file_details)
+        #file_details = {"FileName":uploaded_file.name,"FileType":uploaded_file.type,"FileSize":uploaded_file.size}
+        st.write('File Uploaded!')
     if st.button('Process'):
         data_path = uploaded_file
         with st.spinner('The Report is getting generated...'):
