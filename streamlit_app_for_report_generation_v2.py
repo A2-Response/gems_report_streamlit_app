@@ -115,7 +115,7 @@ def get_part_list(df):
     df2_ = df2[~((df2['Level']==1)|(df2['Type'].isin(['Circuit Board Assembly','Tested Hybrid-Mcm'])))]
     l = [i for i in df2_.columns if i not in ['Usage','Qty','Level','Rev']]
     df2_1 = df2_[l]
-    df2_1 = df2_1.drop_duplicates(subset=['Type'])
+    df2_1 = df2_1.drop_duplicates(subset=['Name'])
     l1 = [i for i in df2_1.columns if i not in ['PB-Free','CE Mark']]
     df2_2 = df2_1[l1]
     l4 = ['Name',
