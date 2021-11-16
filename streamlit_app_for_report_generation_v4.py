@@ -26,6 +26,7 @@ import os
 import pyautogui
 import ast
 import shutil
+os.environ['DISPLAY'] = ':0'
 
 def enable_download_headless(browser,download_dir):
         browser.command_executor._commands["send_command"] = ("POST", '/session/$sessionId/chromium/send_command')
