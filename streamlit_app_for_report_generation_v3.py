@@ -208,7 +208,7 @@ def get_whereused(df):
     df_sub_filt = df_sub_filt[df_sub_filt['Asset PN']!=df_sub_filt['PWA PN']]
     
     df_sub_filt = df_sub_filt[df_sub_filt['Component Qty']!=0]
-    df_sub_filt_sub = df_sub_filt[['Type','Name','Rev','PWA PN', 
+    df_sub_filt_sub = df_sub_filt[['Type','Name','Rev','Desc','Project','PWA PN', 
                                    'PWA Description', 'PWA Project','Asset PN', 
                                    'Asset Description','Component Qty','RoHS', 
                                    'Proc Code', 'Proc Date', 'CE Mark','EU RoHS Exemption', 
