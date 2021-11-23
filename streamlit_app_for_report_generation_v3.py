@@ -9,6 +9,7 @@ import os
 import copy
 import base64
 import io
+import numpy as np
 
 def process_data(path):
     df = pd.read_csv(path,sep='\t')
@@ -23,6 +24,10 @@ def process_data(path):
     return df
     
 def groupd_by(df_sub):
+    df_sub["PWA PN"] = np.nan
+    df_sub["PWA Description"] = np.nan
+    df_sub["PWA Qty"] = np.nan
+    df_sub["PWA Project"] = np.nan
     for j in df_sub.loc[df_sub['Type'].isin(['Circuit Board Assembly','Tested Hybrid-Mcm'])].index:
         level = df_sub.loc[j,'Level']
         pwapn = df_sub.loc[j,'Name']
