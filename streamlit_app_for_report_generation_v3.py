@@ -12,13 +12,7 @@ import io
 import numpy as np
 
 def process_data(path):
-    if path.endswith('.csv'):
-        df = pd.read_csv(path,sep=',')
-    else:
-        try:
-            df = pd.read_csv(path,sep='\t')
-        except:
-            df = pd.read_csv(path,sep=',',encoding='latin')
+    df = pd.read_csv(path,sep='\t')
     indices = list(df[df['Level']==1].index)
     copy_indices = copy.deepcopy(indices)
     copy_indices.append(df.shape[0])
